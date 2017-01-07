@@ -18,7 +18,20 @@ function numberWithCommas(x) {
 }
 
 function displayMatches() {
+	if(this.value == "")
+	{
+		const defaultResult = `<li>Filter for a city</li>
+      		<li>or a state</li>`;
+		suggestions.innerHTML = defaultResult;
+		return;
+	}
 	const matchArray = findMatches(this.value, cities);
+	if(matchArray == "")
+	{
+		const noResult = `<li style="text-align:center">No results</li>`;
+		suggestions.innerHTML = noResult;
+		return;
+	}
 	const html = matchArray.map(place => {
 		const regex = new RegExp(this.value, 'gi');
 		const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
